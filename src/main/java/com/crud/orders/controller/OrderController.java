@@ -41,9 +41,29 @@ public class OrderController {
         return view(order);
     }
     @RequestMapping(value = "/views/breakfastOrder")
-    public ModelAndView getAll() {
-        List<Order> list = orderDao.findAll().stream().filter(s->s.getDepartment().contains("Breakfast")).collect(Collectors.toList());
+    public ModelAndView getAllBreakfast() {
+        List<Order> list = orderDao.findAllBreakfast();
         return new ModelAndView("breakfastOrder", "list", list);
+    }
+    @RequestMapping(value = "/views/breakfastService")
+    public ModelAndView getAllService(){
+        List<Order> list = orderDao.findAllService();
+        return new ModelAndView("breakfastService", "list", list);
+    }
+    @RequestMapping(value = "/views/dishwash")
+    public ModelAndView getAllDishwash(){
+        List<Order> list = orderDao.findAllDishwash();
+        return new ModelAndView("dishwash", "list", list);
+    }
+    @RequestMapping(value = "/views/k&t")
+    public ModelAndView getAllKt(){
+        List<Order> list = orderDao.findAllKt();
+        return new ModelAndView("k&t", "list", list);
+    }
+    @RequestMapping(value = "/views/lunvh&banket")
+    public ModelAndView getAllLunchBanket(){
+        List<Order> list = orderDao.findAllLunchBanket();
+        return new ModelAndView("lunch&banket", "list", list);
     }
     @RequestMapping(value = "/editOrder/{id}")
     public String edit(@PathVariable Long id , ModelMap model){
