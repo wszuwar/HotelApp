@@ -2,10 +2,12 @@ package com.crud.orders.mapper;
 
 import com.crud.orders.model.Order;
 import com.crud.orders.model.OrderDto;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class OrderMapper {
     public Order mapToOrder(final OrderDto orderDto){
         return new Order(
