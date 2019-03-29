@@ -13,23 +13,21 @@ public class DbService {
     @Autowired
     private OrderRepository repository;
 
-    public List<Order> getAllOrders(){
+    public List<Order> findAllOrders(){
         return repository.findAll();
     }
 
-    public Order getOrderById(final Long id){
-        return repository.findOne(id);
-    }
-    public Order saveOrder(final Order order){
+
+    public Order saveOrder( Order order){
         return repository.save(order);
     }
 
-    public Optional<Order> getOrder(final  Long id){
-        return repository.findById(id);
+    public Order findOneorder(Long id) {
+        return repository.findOne(id);
     }
 
-    public void deleteOrder(final Long id){
-        repository.delete(id);
+    public void deleteOrder(Order ord){
+        repository.delete(ord);
     }
 
 
