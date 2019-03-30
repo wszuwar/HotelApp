@@ -37,4 +37,10 @@ public class OrderMapper {
                         m.getId(),m.getDate(),m.getDepartment(),m.getProduct(),m.getSupplier(),m.getStatus()))
                 .collect(Collectors.toList());
     }
+    public List<Order> mapToOrderList(final List<OrderDto> orderList){
+        return orderList.stream()
+                .map(m-> new Order(
+                        m.getId(),m.getDate(),m.getDepartment(),m.getProduct(),m.getSupplier(),m.getStatus()))
+                .collect(Collectors.toList());
+    }
 }

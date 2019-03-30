@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Orders From All Departments</title>
 </head>
 <body>
+<h1 align="center">Order List</h1>
+<form:form>
+
+    <table border="2" width="70%" cellpadding="2">
+
+        <tr>
+            <th>Date</th>
+            <th>Department</th>
+            <th>Product</th>
+            <th>Suplier</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+        <tr th:each="order : ${list}">
+
+
+
+
+
+        </tr>
+
+    </table>
+
+</form:form>
+
+
 
 </body>
 </html>

@@ -30,7 +30,7 @@ public class OrderController {
     private OrderMapper mapper;
 
     @RequestMapping(value = "/order/views/allOrders")
-    public ModelAndView getAll(){
+    public ModelAndView getAllOrders(){
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders());
         return new ModelAndView("allOrders","list",list);
     }
@@ -41,7 +41,8 @@ public class OrderController {
         return "addOrder";
     }
     @RequestMapping(value = "/order/saveOrder", method = RequestMethod.POST)
-    public String saveOrderRegistration(@Valid OrderDto orderDto, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes){
+    public String saveOrderRegistration(@Valid OrderDto orderDto, BindingResult result, ModelMap model,
+                                        RedirectAttributes redirectAttributes){
         if (result.hasErrors()) {
             System.out.println("HAS ERRORS!");
             return "addOrder";
