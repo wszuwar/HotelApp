@@ -29,50 +29,50 @@ public class OrderController {
     @Autowired
     private OrderMapper mapper;
 
-    @RequestMapping(value = "/order/views/allOrders")
+    @RequestMapping(value = "order/views/allOrders")
     public ModelAndView getAllOrders(){
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders());
-        return new ModelAndView("allOrders","list",list);
+        return new ModelAndView("order/views/allOrders","list",list);
     }
     @RequestMapping(value = "/order/addOrder", method = RequestMethod.GET)
     public String newOrderRegistration(ModelMap model){
         OrderDto orderDto = new OrderDto();
-        model.addAttribute("order", orderDto);
-        return "addOrder";
+        model.addAttribute("order", mapper.mapToOrder(orderDto) );
+        return "order/addOrder";
     }
-    @RequestMapping(value = "/order/saveOrder", method = RequestMethod.POST)
-    public String saveOrderRegistration(@Valid OrderDto orderDto, BindingResult result, ModelMap model,
+    @RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
+    public String saveOrderRegistration(@Valid Order orderDto, BindingResult result, ModelMap model,
                                         RedirectAttributes redirectAttributes){
         if (result.hasErrors()) {
             System.out.println("HAS ERRORS!");
-            return "addOrder";
+            return "order/addOrder";
         }
-        service.saveOrder(mapper.mapToOrder(orderDto));
+        mapper.mapToOrderDto(service.saveOrder(orderDto));
         return "redirect:/order/views/allOrders";
     }
     @RequestMapping(value = "/order/editOrder/{id}")
     public String editOrder(@PathVariable Long id, ModelMap model){
-        OrderDto orderDto = mapper.mapToOrderDto(service.findOneorder(id));
-        model.addAttribute("order",orderDto);
-        return "editOrder";
+         mapper.mapToOrderDto(service.findOneorder(id));
+        model.addAttribute("orderDto",mapper.mapToOrderDto(service.findOneorder(id)));
+        return "order/editOrder";
     }
 
     @RequestMapping(value = "/editOrderSave", method = RequestMethod.POST)
-    public ModelAndView editOrderSave(@ModelAttribute("order") OrderDto o){
-        OrderDto orderDto = mapper.mapToOrderDto(service.findOneorder(o.getId()));
+    public ModelAndView editOrderSave(@ModelAttribute("orderDto") Order o){
+        Order orderDto = service.findOneorder(o.getId());
 
-        mapper.mapToOrder(orderDto).setDepartment(o.getDepartment());
-        mapper.mapToOrder(orderDto).setProduct(o.getProduct());
-        mapper.mapToOrder(orderDto).setSupplier(o.getSupplier());
-        mapper.mapToOrder(orderDto).setStatus(o.getStatus());
+        orderDto.setDepartment(o.getDepartment());
+        orderDto.setProduct(o.getProduct());
+        orderDto.setSupplier(o.getSupplier());
+        orderDto.setStatus(o.getStatus());
 
-        service.saveOrder(mapper.mapToOrder(orderDto));
+        mapper.mapToOrderDto(service.saveOrder(orderDto));
         return new ModelAndView("redirect:/order/views/allOrders");
     }
     @RequestMapping(value = "/deleteOrder/{id}", method = RequestMethod.GET)
     public ModelAndView deleteOrder(@PathVariable Long id){
-        OrderDto orderDto = mapper.mapToOrderDto(service.findOneorder(id));
-       service.deleteOrder(mapper.mapToOrder(orderDto));
+        Order order = service.findOneorder(id);
+        service.deleteOrder(order);
        return new ModelAndView("redirect:/order/views/allOrders");
     }
 

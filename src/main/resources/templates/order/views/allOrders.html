@@ -2,19 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Orders From All Departments</title>
 </head>
 <body>
-<h1 align="center">Order List</h1>
-<form:form>
 
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Wyloguj" id="logout"/>
+    <h1 align="center">Order List</h1>
+</form>
+<form:form>
+    <tr>
+
+
+        <th>
+            <a href="/order/addOrder">
+                <button name="add" id="add">Dodaj Nowy</button>
+            </a>
+        </th>
+
+        <th>
+
+
+        </th>
+    </tr>
     <table border="2" width="70%" cellpadding="2">
+
 
         <tr>
             <th>Date</th>
-            <th>Department</th>
             <th>Product</th>
+            <th>Department</th>
             <th>Suplier</th>
             <th>Status</th>
             <th>Edit</th>
@@ -22,6 +40,19 @@
         </tr>
 
         <tr th:each="order : ${list}">
+            <td th:text="${{order.date}}"></td>
+            <td th:text="${order.product}"></td>
+            <td th:text="${order.department}"></td>
+            <td th:text="${order.supplier}"></td>
+            <td th:text="${order.status}"></td>
+
+
+            <td><a th:href="@{'/order/editOrder/' + ${order.id}}">
+                <button name="edit" id="edit">Edit</button>
+            </a></td>
+            <td><a th:href="@{'/deleteOrder/' + ${order.id}}">
+                <button name="delete" id="delete">Delete</button>
+            </a></td>
 
 
 

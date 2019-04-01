@@ -12,7 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "order_crud")
+@Entity
+@Table(name = "order_crud")
 @EntityListeners(AuditingEntityListener.class)
 public class Order {
 

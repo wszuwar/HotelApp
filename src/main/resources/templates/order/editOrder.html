@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Order </title>
+
+    <meta charset="UTF-8"/>
 </head>
 <body>
+<div>
 
+    <h1>Edit Order</h1>
+
+    <form action="#" th:action="@{/editOrderSave}" th:object="${orderDto}" method="post">
+        <input type="hidden" th:value="${id}" th:field="*{id}"/>
+
+        <table id="editOrder">
+            <tr>
+                <td width="10%">Product :</td>
+                <td>
+                    <input type="text" th:field="*{product}"/>
+
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>Department :</td>
+                <td>
+
+                    <select th:field="*{department}">
+                        <option th:each="department : ${departments}" th:value="${department}" th:text="${department}">
+                            Department
+                        </option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Supplier :</td>
+                <td>
+                    <select th:field="*{supplier}">
+                        <option th:each="supplier : ${suppliers}" th:value="${supplier}" th:text="${supplier}">Supplier
+                        </option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Status :</td>
+                <td>
+                    <input type="text" th:field="*{status}"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Save Changes"/>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+</div>
 </body>
 </html>

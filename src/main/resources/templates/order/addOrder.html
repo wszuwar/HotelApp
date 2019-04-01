@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Add Order</title>
 </head>
 <body>
+<div>
 
+    <h1>Add New Order</h1>
+
+    <form action="#" th:action="@{/saveOrder}" th:object="${order}" method="post">
+
+        <table id="addOrder">
+            <tr>
+                <td width="10%">Product :</td>
+                <td>
+                    <input type="text" th:field="*{product}"/>
+                    <label th:if="${#fields.hasErrors('product')}" th:errors="*{product}" th:class="'error'">Error in
+                        Product</label>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>Department :</td>
+                <td>
+
+                    <select th:field="*{department}">
+                        <option th:each="department : ${departments}" th:value="${department}" th:text="${department}">
+                            Department
+                        </option>
+                    </select>
+                    <label th:if="${#fields.hasErrors('department')}" th:errors="*{department}" th:class="'error'">Error
+                        in Department</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Supplier :</td>
+                <td>
+                    <select th:field="*{supplier}">
+                        <option th:each="supplier : ${suppliers}" th:value="${supplier}" th:text="${supplier}">Supplier
+                        </option>
+                    </select>
+                    <label th:if="${#fields.hasErrors('supplier')}" th:errors="*{supplier}" th:class="'error'">Error
+                        in Supplier</label>
+                </td>
+            </tr>
+            <tr>
+                <td >Status :</td>
+                <td>
+                    <input type="text" th:field="*{status}"/>
+                    <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}" th:class="'error'">Error in
+                        Status</label>
+                </td>
+            </tr>
+            <tr>
+                <td>	</td>
+                <td >
+                    <input type="submit" value="Add"/>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+</div>
 </body>
 </html>
