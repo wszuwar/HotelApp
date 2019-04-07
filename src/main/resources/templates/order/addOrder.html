@@ -13,7 +13,8 @@
 
         <table id="addOrder">
             <tr>
-                <td width="10%">Product :</td>
+
+            <td width="10%" >Product :</td>
                 <td>
                     <input type="text" th:field="*{product}"/>
                     <label th:if="${#fields.hasErrors('product')}" th:errors="*{product}" th:class="'error'">Error in

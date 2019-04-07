@@ -1,12 +1,18 @@
 package com.crud.orders.model;
 
 import lombok.*;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import javax.persistence.*;
+
 import java.util.Date;
+
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,10 +27,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    @DateTimeFormat(pattern = "YYYY-MM-dd")
+
     @Column(name = "date")
+    @UpdateTimestamp
     private Date date;
 
     @Column(name = "department")
@@ -38,5 +43,6 @@ public class Order {
 
     @Column(name = "status")
     private String status;
+
 
 }

@@ -40,7 +40,7 @@
         </tr>
 
         <tr th:each="order : ${list}">
-            <td th:text="${{order.date}}"></td>
+            <td th:text="${{#dates.format(order.date, 'dd-MM-yyyy')}}"></td>
             <td th:text="${order.product}"></td>
             <td th:text="${order.department}"></td>
             <td th:text="${order.supplier}"></td>

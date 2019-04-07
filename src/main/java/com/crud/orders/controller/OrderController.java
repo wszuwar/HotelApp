@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class OrderController {
     @RequestMapping(value = "/editOrderSave", method = RequestMethod.POST)
     public ModelAndView editOrderSave(@ModelAttribute("orderDto") Order o){
         Order orderDto = service.findOneorder(o.getId());
+
 
         orderDto.setDepartment(o.getDepartment());
         orderDto.setProduct(o.getProduct());
