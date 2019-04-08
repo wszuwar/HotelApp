@@ -1,11 +1,10 @@
 package com.crud.orders.model;
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 import javax.persistence.*;
