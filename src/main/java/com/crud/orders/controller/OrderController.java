@@ -40,31 +40,31 @@ public class OrderController {
     @RequestMapping(value = "order/views/lunch&banket")
     public ModelAndView getAllBanket() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
-                .filter(order -> order.getDepartment().contains("Lunch&Banket")).collect(Collectors.toList()));
+                .filter(order -> order.getDepartment().matches("Lunch&Banket")).collect(Collectors.toList()));
         return new ModelAndView("order/views/lunch&banket", "list", list);
     }
     @RequestMapping(value = "order/views/breakfastOrder")
     public ModelAndView getAllBreakfast() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
-                .filter(order -> order.getDepartment().contains("Breakfast")).collect(Collectors.toList()));
+                .filter(order -> order.getDepartment().matches("Breakfast")).collect(Collectors.toList()));
         return new ModelAndView("order/views/breakfastOrder", "list", list);
     }
     @RequestMapping(value = "order/views/breakfastService")
     public ModelAndView getAllBreakfastService() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
-                .filter(order -> order.getDepartment().contains("Breakfast Service")).collect(Collectors.toList()));
+                .filter(order -> order.getDepartment().matches("Breakfast Service")).collect(Collectors.toList()));
         return new ModelAndView("order/views/breakfastService", "list", list);
     }
     @RequestMapping(value = "order/views/k&t")
     public ModelAndView getAllKT() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
-                .filter(order -> order.getDepartment().contains("K&T")).collect(Collectors.toList()));
+                .filter(order -> order.getDepartment().matches("K&T")).collect(Collectors.toList()));
         return new ModelAndView("order/views/k&t", "list", list);
     }
     @RequestMapping(value = "order/views/dishwash")
     public ModelAndView getAllDishwash() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
-                .filter(order -> order.getDepartment().contains("Dishwash")).collect(Collectors.toList()));
+                .filter(order -> order.getDepartment().matches("Dishwash")).collect(Collectors.toList()));
         return new ModelAndView("order/views/dishwash", "list", list);
     }
 
@@ -85,7 +85,7 @@ public class OrderController {
             return "order/addOrder";
         }
         mapper.mapToOrderDto(service.saveOrder(orderDto));
-        return "redirect:/order/views/allOrders";
+        return redirect(orderDto);
     }
 
     @RequestMapping(value = "/order/editOrder/{id}")
@@ -106,14 +106,14 @@ public class OrderController {
         order.setStatus(o.getStatus());
 
         mapper.mapToOrderDto(service.saveOrder(order));
-        return new ModelAndView("redirect:/order/views/allOrders");
+        return new ModelAndView(redirect(order));
     }
 
     @RequestMapping(value = "/deleteOrder/{id}", method = RequestMethod.GET)
     public ModelAndView deleteOrder(@PathVariable Long id) {
         Order order = service.findOneorder(id);
         service.deleteOrder(order);
-        return new ModelAndView("redirect:/order/views/allOrders");
+        return new ModelAndView(redirect(order));
     }
 
 
@@ -136,5 +136,28 @@ public class OrderController {
         suppliers.add("Others");
         return suppliers;
     }
+
+    public String redirect(Order order){
+        String redirecting = "";
+        switch (order.getDepartment()){
+            case "Breakfast":
+                redirecting = "redirect:/order/views/breakfastOrder";
+                break;
+            case "Lunch&Banket":
+                redirecting = "redirect:/order/views/lunch&banket";
+                break;
+            case "K&T":
+                redirecting = "redirect:/order/views/k&t";
+                break;
+            case "Breakfast Service":
+                redirecting = "redirect:/order/views/breakfastService";
+                break;
+            case "Dishwash":
+                redirecting = "redirect:/order/views/dishwash";
+                break;
+        }
+        return redirecting;
+    }
+
 
 }
