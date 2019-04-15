@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title> Login </title>
+    <link rel="stylesheet" th:href="@{/css/loginStyle.css}"/>
+
 </head>
 <body>
-
+<div class="box">
+    <H2>Login</H2>
+    <form th:class="login" th:action="@{/login}" method="post" id="login">
+        <div class="inputBox">
+            <input type="text" name="username" required=""/>
+            <label>Username</label>
+        </div>
+        <div class="inputBox">
+            <input type="password" name="password" required=""/>
+            <label>password</label>
+        </div>
+ <input type="submit" name="" value="Submit"/>
+    </form>
+</div>
 </body>
 </html>

@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,11 +36,11 @@ public class OrderController {
         return new ModelAndView("order/views/allOrders", "list", list);
     }
 
-    @RequestMapping(value = "order/views/lunch&banket")
+    @RequestMapping(value = "order/views/lunchbanket")
     public ModelAndView getAllBanket() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Lunch&Banket")).collect(Collectors.toList()));
-        return new ModelAndView("order/views/lunch&banket", "list", list);
+        return new ModelAndView("order/views/lunchbanket", "list", list);
     }
     @RequestMapping(value = "order/views/breakfastOrder")
     public ModelAndView getAllBreakfast() {
@@ -55,11 +54,11 @@ public class OrderController {
                 .filter(order -> order.getDepartment().matches("Breakfast Service")).collect(Collectors.toList()));
         return new ModelAndView("order/views/breakfastService", "list", list);
     }
-    @RequestMapping(value = "order/views/k&t")
+    @RequestMapping(value = "order/views/kt")
     public ModelAndView getAllKT() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("K&T")).collect(Collectors.toList()));
-        return new ModelAndView("order/views/k&t", "list", list);
+        return new ModelAndView("order/views/kt", "list", list);
     }
     @RequestMapping(value = "order/views/dishwash")
     public ModelAndView getAllDishwash() {
