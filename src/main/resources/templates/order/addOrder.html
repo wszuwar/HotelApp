@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Add Order</title>
+    <link rel="stylesheet" th:href="@{/css/addAndEditStyles.css}"/>
 </head>
 <body>
 <div>
 
-    <h1>Add New Order</h1>
+    <h1 align="center">New Order</h1>
 
     <form action="#" th:action="@{/saveOrder}" th:object="${order}" method="post">
 
         <table id="addOrder">
             <tr>
 
-            <td width="10%" >Product :</td>
+                <td width="10%" >Product :</td>
                 <td>
                     <input type="text" th:field="*{product}"/>
                     <label th:if="${#fields.hasErrors('product')}" th:errors="*{product}" th:class="'error'">Error in
@@ -28,7 +29,7 @@
                 <td>
 
                     <select th:field="*{department}">
-                        <option th:each="department : ${departments}" th:value="${department}" th:text="${department}">
+                        <option id="depoption" th:each="department : ${departments}" th:value="${department}" th:text="${department}">
                             Department
                         </option>
                     </select>
@@ -41,7 +42,7 @@
                 <td>Supplier :</td>
                 <td>
                     <select th:field="*{supplier}">
-                        <option th:each="supplier : ${suppliers}" th:value="${supplier}" th:text="${supplier}">Supplier
+                        <option id="supplier" th:each="supplier : ${suppliers}" th:value="${supplier}" th:text="${supplier}">Supplier
                         </option>
                     </select>
                     <label th:if="${#fields.hasErrors('supplier')}" th:errors="*{supplier}" th:class="'error'">Error
@@ -49,7 +50,7 @@
                 </td>
             </tr>
             <tr>
-                <td >Status :</td>
+                <td>Status :</td>
                 <td>
                     <input type="text" th:field="*{status}"/>
                     <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}" th:class="'error'">Error in
@@ -57,9 +58,9 @@
                 </td>
             </tr>
             <tr>
-                <td>	</td>
-                <td >
-                    <input type="submit" value="Add"/>
+                <td></td>
+                <td>
+                    <input type="submit" id="add" value="Add"/>
 
                 </td>
             </tr>

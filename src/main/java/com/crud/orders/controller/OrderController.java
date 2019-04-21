@@ -143,10 +143,10 @@ public class OrderController {
                 redirecting = "redirect:/order/views/breakfastOrder";
                 break;
             case "Lunch&Banket":
-                redirecting = "redirect:/order/views/lunch&banket";
+                redirecting = "redirect:/order/views/lunchbanket";
                 break;
             case "K&T":
-                redirecting = "redirect:/order/views/k&t";
+                redirecting = "redirect:/order/views/kt";
                 break;
             case "Breakfast Service":
                 redirecting = "redirect:/order/views/breakfastService";

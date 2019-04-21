@@ -4,11 +4,12 @@
     <title>Edit Order </title>
 
     <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/addAndEditStyles.css}"/>
 </head>
 <body>
 <div>
 
-    <h1>Edit Order</h1>
+    <h1 align="center">Edit Order</h1>
 
     <form action="#" th:action="@{/editOrderSave}" th:object="${orderDto}" method="post">
         <input type="hidden" th:value="${id}" th:field="*{id}"/>
@@ -28,7 +29,7 @@
                 <td>
 
                     <select th:field="*{department}">
-                        <option th:each="department : ${departments}" th:value="${department}" th:text="${department}">
+                        <option id="depoption" th:each="department : ${departments}" th:value="${department}" th:text="${department}">
                             Department
                         </option>
                     </select>
@@ -39,7 +40,7 @@
                 <td>Supplier :</td>
                 <td>
                     <select th:field="*{supplier}">
-                        <option th:each="supplier : ${suppliers}" th:value="${supplier}" th:text="${supplier}">Supplier
+                        <option id="suppoption" th:each="supplier : ${suppliers}" th:value="${supplier}" th:text="${supplier}">Supplier
                         </option>
                     </select>
 
@@ -54,7 +55,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" value="Save Changes"/>
+                    <input id="save" type="submit" value="Save Changes"/>
 
                 </td>
             </tr>

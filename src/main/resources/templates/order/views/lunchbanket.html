@@ -4,31 +4,40 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Orders From All Departments</title>
+    <link rel="stylesheet" th:href="@{/css/tablesStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/buttonsStyle.css}"/>
+
+
 </head>
+
+
 <body>
+<ul>
+    <li>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" id="logout"/>
+        </form>
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Wyloguj" id="logout"/>
-    <h1 align="center">Order List</h1>
-</form>
+    </li>
+    <li><a href="/order/addOrder">
+        <button name="add" id="newOrder">Add New</button>
+    </a>
+    </li>
+    <li><a href="/home">
+        <button name="back" id="back">Back</button>
+    </a> </li>
+</ul>
+<br>
+<div><h1 align="center"> Lunch/Banket Orders</h1></div>
+</br>
+
+
 <form:form>
-    <tr>
 
 
-        <th>
-            <a href="/order/addOrder">
-                <button name="add" id="add">Dodaj Nowy</button>
-            </a>
-        </th>
+    <table class="content-table" width="70%" cellpadding="2">
 
-        <th>
-
-
-        </th>
-    </tr>
-    <table border="2" width="70%" cellpadding="2">
-
-
+        <thead>
         <tr>
             <th>Date</th>
             <th>Product</th>
@@ -38,7 +47,8 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-
+        </thead>
+        <tbody>
         <tr th:each="order : ${list}">
             <td th:text="${{#dates.format(order.date, 'dd-MM-yyyy')}}"></td>
             <td th:text="${order.product}"></td>
@@ -55,16 +65,10 @@
             </a></td>
 
 
-
-
-
         </tr>
-
+        </tbody>
     </table>
 
 </form:form>
-
-
-
 </body>
 </html>
