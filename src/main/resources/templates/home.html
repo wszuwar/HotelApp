@@ -9,29 +9,26 @@
 </head>
 
 
+<ul>
+    <li><a>Exit</a>
 
-    <ul>
-        <li><a>Exit</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" id="logout"/>
+        </form>
+    </li>
+    <li><a>Orders</a>
         <ul>
-            <li>
-               <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Logout" id="logout"/>
-                </form> </li>
-        </ul></li>
-        <li><a>Orders</a>
-            <ul>
-                <li><a th:href="@{/order/views/breakfastOrder.html}">Breakfast</a></li>
-                <li><a th:href="@{/order/views/lunchbanket.html}">Lunch/Banket</a></li>
-                <li><a th:href="@{/order/views/kt.html}">K T</a></li>
-                <li><a th:href="@{/order/views/dishwash.html}">Dishwash</a></li>
-                <li><a th:href="@{/order/views/breakfastService.html}">Breakfast Service</a></li>
-                <li><a th:href="@{/order/views/allOrders.html}">All Orders</a></li>
+            <li><a th:href="@{/order/views/breakfastOrder.html}">Breakfast</a></li>
+            <li><a th:href="@{/order/views/lunchbanket.html}">Lunch/Banket</a></li>
+            <li><a th:href="@{/order/views/kt.html}">K T</a></li>
+            <li><a th:href="@{/order/views/dishwash.html}">Dishwash</a></li>
+            <li><a th:href="@{/order/views/breakfastService.html}">Breakfast Service</a></li>
+            <li><a th:href="@{/order/views/allOrders.html}">All Orders</a></li>
 
-            </ul>
-        </li>
-        <li><a>Waste</a></li>
-    </ul>
-
+        </ul>
+    </li>
+    <li><a>Waste</a></li>
+</ul>
 
 
 </html>
