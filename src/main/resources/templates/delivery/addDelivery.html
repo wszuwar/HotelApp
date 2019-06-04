@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Add Delivery</title>
 </head>
 <body>
+<div>
 
+    <h1 align="center">New Order</h1>
+
+    <form action="#" th:action="@{/saveDelivery}" th:object="${delivery}" method="post">
+
+        <table id="addDelivery">
+            <tr>
+            <td width="10%" >Delivery Date :<td>
+            <td>
+            <input type="date" th:field="*{deliveryDate}"/>
+                <label th:if="${#fields.hasErrors('deliveryDate')}" th:errors="*{deliveryDate}" th:class="'error'">Error in
+                    Delivery Date</label>
+            </td>
+            </tr>
+            <tr>
+                <td>Product</td>
+                <td>
+                    <input type="text" th:field="*{productName}">
+                    <label th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" th:class="'error'">Error in
+                    Product Name</label>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" id="Ordered" value="Ordered"/>
+
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
 </body>
 </html>

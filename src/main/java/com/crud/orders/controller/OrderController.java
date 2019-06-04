@@ -1,7 +1,9 @@
 package com.crud.orders.controller;
 
 
+import com.crud.orders.mapper.DeliveryMapper;
 import com.crud.orders.mapper.OrderMapper;
+import com.crud.orders.model.DeliveryDto;
 import com.crud.orders.model.OrderDto;
 import com.crud.orders.model.Order;
 import com.crud.orders.service.DbService;
@@ -28,6 +30,10 @@ public class OrderController {
     private DbService service;
 
     @Autowired
+    private DeliveryMapper dmapper;
+
+
+    @Autowired
     private OrderMapper mapper;
 
     @RequestMapping(value = "order/views/allOrders")
@@ -46,6 +52,7 @@ public class OrderController {
     public ModelAndView getAllBreakfast() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Breakfast")).collect(Collectors.toList()));
+        List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
         return new ModelAndView("order/views/breakfastOrder", "list", list);
     }
     @RequestMapping(value = "order/views/breakfastService")

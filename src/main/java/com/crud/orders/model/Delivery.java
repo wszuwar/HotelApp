@@ -29,5 +29,5 @@ public class Delivery {
     private Date deliveryDate;
 
     @Column(name = "productName")
-    private String product;
+    private String productName;
 }
