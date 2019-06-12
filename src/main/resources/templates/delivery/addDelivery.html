@@ -13,25 +13,23 @@
 
         <table id="addDelivery">
             <tr>
-            <td width="10%" >Delivery Date :<td>
+            <td width="10%" >Delivery Date :></td>
             <td>
             <input type="date" th:field="*{deliveryDate}"/>
-                <label th:if="${#fields.hasErrors('deliveryDate')}" th:errors="*{deliveryDate}" th:class="'error'">Error in
-                    Delivery Date</label>
             </td>
             </tr>
+
             <tr>
                 <td>Product</td>
                 <td>
-                    <input type="text" th:field="*{productName}">
-                    <label th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" th:class="'error'">Error in
-                    Product Name</label>
+                    <input type="text" th:field="*{productName}"/>
+
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" id="Ordered" value="Ordered"/>
+                    <input type="submit" id="Ordered" value="SUbmit"/>
 
                 </td>
             </tr>

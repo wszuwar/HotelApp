@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -25,7 +26,7 @@ public class Delivery {
     private Long id;
 
     @Column(name = "deliveryDate")
-    @DateTimeFormat
+    @DateTimeFormat(style = "dd-MM-yyyy")
     private Date deliveryDate;
 
     @Column(name = "productName")

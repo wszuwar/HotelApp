@@ -3,12 +3,15 @@ package com.crud.orders.controller;
 
 import com.crud.orders.mapper.DeliveryMapper;
 import com.crud.orders.mapper.OrderMapper;
+import com.crud.orders.model.Delivery;
 import com.crud.orders.model.DeliveryDto;
 import com.crud.orders.model.OrderDto;
 import com.crud.orders.model.Order;
 import com.crud.orders.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -53,7 +57,9 @@ public class OrderController {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Breakfast")).collect(Collectors.toList()));
         List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
+        new ModelAndView("order/views/breakfastOrder","dList",dList);
         return new ModelAndView("order/views/breakfastOrder", "list", list);
+
     }
     @RequestMapping(value = "order/views/breakfastService")
     public ModelAndView getAllBreakfastService() {
@@ -98,6 +104,7 @@ public class OrderController {
     public String editOrder(@PathVariable Long id, ModelMap model) {
         mapper.mapToOrderDto(service.findOneorder(id));
         model.addAttribute("orderDto", mapper.mapToOrderDto(service.findOneorder(id)));
+
         return "order/editOrder";
     }
 
@@ -119,6 +126,23 @@ public class OrderController {
     public ModelAndView deleteOrder(@PathVariable Long id) {
         Order order = service.findOneorder(id);
         service.deleteOrder(order);
+        return new ModelAndView(redirect(order));
+    }
+    @RequestMapping(value = "delivery/addDelivery/{id}", method = RequestMethod.GET)
+    public String addDeliveryies(@PathVariable Long id, ModelMap model) {
+        mapper.mapToOrderDto(service.findOneorder(id));
+        model.addAttribute("orderDto", mapper.mapToOrderDto(service.findOneorder(id)));
+        DeliveryDto deliveryDto = new DeliveryDto();
+        model.addAttribute("delivery", dmapper.mapToDelivery(deliveryDto));
+        return "delivery/addDelivery";
+    }
+
+    @RequestMapping(value = "/saveDelivery", method = RequestMethod.POST)
+    public ModelAndView addSaveDelivery(@ModelAttribute("orderDto") Order o, @ModelAttribute("delivery") Delivery d){
+        Delivery delivery = service.findOneDelivery(d.getId());
+        Order order = service.findOneorder(o.getId());
+        delivery.setProductName(o.getProduct());
+        dmapper.mapToDeliveryDto(service.saveDelivery(delivery));
         return new ModelAndView(redirect(order));
     }
 
