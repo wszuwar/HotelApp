@@ -36,7 +36,11 @@ public class DbService {
     public List<Delivery> findAllDeliveryies(){
         return deliveryRepository.findAll();
     }
-    public Delivery saveDelivery(Delivery delivery){
+    public Delivery saveDelivery(Delivery delivery, Order order){
+
+        repository.findById(order.getId());
+        delivery.setProductName(order.getProduct());
+        repository.delete(order);
         return deliveryRepository.save(delivery);
     }
     public Delivery findOneDelivery(Long id){

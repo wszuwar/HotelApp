@@ -138,12 +138,12 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/saveDelivery", method = RequestMethod.POST)
-    public ModelAndView addSaveDelivery(@ModelAttribute("orderDto") Order o, @ModelAttribute("delivery") Delivery d){
-        Delivery delivery = service.findOneDelivery(d.getId());
-        Order order = service.findOneorder(o.getId());
-        delivery.setProductName(o.getProduct());
-        dmapper.mapToDeliveryDto(service.saveDelivery(delivery));
-        return new ModelAndView(redirect(order));
+    public ModelAndView addSaveDelivery(@ModelAttribute ("orderDto") Order order ,@ModelAttribute("delivery") Delivery d){
+        Order o = service.findOneorder(order.getId());
+        d.setProductName(order.getProduct());
+       service.saveDelivery(d,o);
+       service.deleteOrder(o);
+        return new ModelAndView("redirect:/order/views/breakfastOrder");
     }
 
 
