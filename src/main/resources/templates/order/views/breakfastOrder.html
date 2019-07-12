@@ -64,7 +64,7 @@
                 <button name="delete" id="delete">Delete</button>
             </a></td>
            
-            <td><a th:href="@{'/delivery/addDelivery/' + ${order.id}}">
+            <td><a th:href="@{'/delivery/addDelivery'}">
                 <button  name="edit" id="Ordered">Ordered</button>
             </a></td>
 
@@ -84,7 +84,7 @@
         <tbody>
         <tr th:each="delivery : ${dList}">
             <td th:text="${{#dates.format(delivery.deliveryDate, 'dd-MM-yyyy')}}"></td>
-            <td th:text="${delivery.product}"></td>
+            <td th:text="${delivery.productName}"></td>
         </tr>
         </tbody>
     </table>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -55,9 +57,9 @@ public class OrderController {
     @RequestMapping(value = "order/views/breakfastOrder")
     public ModelAndView getAllBreakfast() {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
-                .filter(order -> order.getDepartment().matches("Breakfast")).collect(Collectors.toList()));
+                .filter(order -> order.getDepartment().matches("Breakfast"))
+                .filter(order -> order.getProduct().length()!=0).collect(Collectors.toList()));
         List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
-        new ModelAndView("order/views/breakfastOrder","dList",dList);
         return new ModelAndView("order/views/breakfastOrder", "list", list);
 
     }
@@ -128,21 +130,19 @@ public class OrderController {
         service.deleteOrder(order);
         return new ModelAndView(redirect(order));
     }
-    @RequestMapping(value = "delivery/addDelivery/{id}", method = RequestMethod.GET)
-    public String addDeliveryies(@PathVariable Long id, ModelMap model) {
-        mapper.mapToOrderDto(service.findOneorder(id));
-        model.addAttribute("orderDto", mapper.mapToOrderDto(service.findOneorder(id)));
+    @RequestMapping(value = "/delivery/addDelivery", method = RequestMethod.GET)
+    public String addDeliveryies(ModelMap model) {
         DeliveryDto deliveryDto = new DeliveryDto();
         model.addAttribute("delivery", dmapper.mapToDelivery(deliveryDto));
+
         return "delivery/addDelivery";
     }
 
     @RequestMapping(value = "/saveDelivery", method = RequestMethod.POST)
-    public ModelAndView addSaveDelivery(@ModelAttribute ("orderDto") Order order ,@ModelAttribute("delivery") Delivery d){
-        Order o = service.findOneorder(order.getId());
-        d.setProductName(order.getProduct());
-       service.saveDelivery(d,o);
-       service.deleteOrder(o);
+    public ModelAndView addSaveDelivery(@Valid Delivery deliveryDto, BindingResult result, ModelMap model,
+                                        RedirectAttributes redirectAttributes) {
+
+        dmapper.mapToDeliveryDto(service.saveDelivery(deliveryDto));
         return new ModelAndView("redirect:/order/views/breakfastOrder");
     }
 

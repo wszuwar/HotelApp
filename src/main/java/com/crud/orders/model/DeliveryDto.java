@@ -13,5 +13,5 @@ import java.util.Date;
 public class DeliveryDto {
     private Long id;
     private Date deliveryDate;
-    private String product;
+    private String productName;
 }

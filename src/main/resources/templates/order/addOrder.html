@@ -9,6 +9,9 @@
 <div>
 
     <h1 align="center">New Order</h1>
+    <a href="/home">
+        <button name="back" id="back">Back</button>
+    </a>
 
     <form action="#" th:action="@{/saveOrder}" th:object="${order}" method="post">
 
@@ -17,7 +20,7 @@
 
                 <td width="10%" >Product :</td>
                 <td>
-                    <input type="text" th:field="*{product}"/>
+                    <input type="text" th:field="*{product}" minlength="3"/>
                     <label th:if="${#fields.hasErrors('product')}" th:errors="*{product}" th:class="'error'">Error in
                         Product</label>
                 </td>
@@ -49,14 +52,7 @@
                         in Supplier</label>
                 </td>
             </tr>
-            <tr>
-                <td>Status :</td>
-                <td>
-                    <input type="text" th:field="*{status}"/>
-                    <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}" th:class="'error'">Error in
-                        Status</label>
-                </td>
-            </tr>
+
             <tr>
                 <td></td>
                 <td>

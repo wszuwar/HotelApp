@@ -13,7 +13,7 @@ public class DeliveryMapper {
         return new Delivery(
                 deliveryDto.getId(),
                 deliveryDto.getDeliveryDate(),
-                deliveryDto.getProduct()
+                deliveryDto.getProductName()
         );
     }
     public DeliveryDto mapToDeliveryDto(final Delivery delivery){
