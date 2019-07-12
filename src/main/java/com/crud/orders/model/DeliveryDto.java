@@ -12,6 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class DeliveryDto {
     private Long id;
-    private Date deliveryDate;
+    private LocalDate deliveryDate;
     private String productName;
 }

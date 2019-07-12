@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Controller
@@ -55,12 +56,14 @@ public class OrderController {
         return new ModelAndView("order/views/lunchbanket", "list", list);
     }
     @RequestMapping(value = "order/views/breakfastOrder")
-    public ModelAndView getAllBreakfast() {
+    public ModelAndView getAllBreakfast(Model model) {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Breakfast"))
                 .filter(order -> order.getProduct().length()!=0).collect(Collectors.toList()));
         List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
-        return new ModelAndView("order/views/breakfastOrder", "list", list);
+        model.addAttribute("list", list);
+        model.addAttribute("dList", dList);
+        return new ModelAndView("order/views/breakfastOrder", "model", model);
 
     }
     @RequestMapping(value = "order/views/breakfastService")

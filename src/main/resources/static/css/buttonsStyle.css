@@ -41,7 +41,7 @@ ul li a:hover {
     background-color: #009879;
 
 }
-a #edit, #delete {
+a #edit, #delete, #Ordered {
 
     border: 0;
     background: none;
@@ -57,7 +57,7 @@ a #edit, #delete {
     cursor: pointer;
 }
 
-a #edit:hover, #delete:hover {
+a #edit:hover, #delete:hover, #Ordered:hover {
     background: #2ecc71;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }

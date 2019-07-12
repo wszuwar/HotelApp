@@ -26,8 +26,7 @@ public class Delivery {
     private Long id;
 
     @Column(name = "deliveryDate")
-    @DateTimeFormat(style = "dd-MM-yyyy")
-    private Date deliveryDate;
+    private LocalDate deliveryDate;
 
     @Column(name = "productName")
     private String productName;

@@ -46,10 +46,13 @@
 
             <th>Edit</th>
             <th>Delete</th>
+            <th>Order</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${list}">
+
+        <tr th:each="order : ${list}" >
+
             <td th:text="${{#dates.format(order.date, 'dd-MM-yyyy')}}"></td>
             <td th:text="${order.product}"></td>
             <td th:text="${order.department}"></td>
@@ -83,7 +86,7 @@
         </thead>
         <tbody>
         <tr th:each="delivery : ${dList}">
-            <td th:text="${{#dates.format(delivery.deliveryDate, 'dd-MM-yyyy')}}"></td>
+            <td th:text="${delivery.deliveryDate}"></td>
             <td th:text="${delivery.productName}"></td>
         </tr>
         </tbody>
