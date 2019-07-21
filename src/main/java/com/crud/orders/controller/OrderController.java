@@ -133,12 +133,10 @@ public class OrderController {
         service.deleteOrder(order);
         return new ModelAndView(redirect(order));
     }
-    @RequestMapping(value = "/delivery/addDelivery", method = RequestMethod.GET)
-    public String addDeliveryies(ModelMap model) {
-        DeliveryDto deliveryDto = new DeliveryDto();
-        model.addAttribute("delivery", dmapper.mapToDelivery(deliveryDto));
-
-        return "delivery/addDelivery";
+    @RequestMapping(value = "/delivery/addDelivery/{orderId}", method = RequestMethod.POST)
+    public ModelAndView addDeliveryies(ModelMap model, @PathVariable Long orderId) {
+        service.createDelivery(orderId);
+        return new ModelAndView("redirect:/order/views/breakfastOrder");
     }
 
     @RequestMapping(value = "/saveDelivery", method = RequestMethod.POST)

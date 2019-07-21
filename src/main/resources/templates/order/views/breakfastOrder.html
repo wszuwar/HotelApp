@@ -67,8 +67,10 @@
                 <button name="delete" id="delete">Delete</button>
             </a></td>
            
-            <td><a th:href="@{'/delivery/addDelivery'}">
-                <button  name="edit" id="Ordered">Ordered</button>
+            <td><a>
+                <form method="POST" th:action="@{'/delivery/addDelivery/' + ${order.getId()}}">
+                    <button type="submit" name="submit" value="value" class="link-button">Order</button>
+                </form>
             </a></td>
 
 
