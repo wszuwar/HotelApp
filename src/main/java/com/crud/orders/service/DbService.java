@@ -8,6 +8,8 @@ import com.crud.orders.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,6 +46,13 @@ public class DbService {
     }
     public void deleteDelivery(Delivery delivery){
         deliveryRepository.delete(delivery);
+    }
+
+    @Transactional
+    public void createDelivery(Long orderId)  {
+        Order order = findOneorder(orderId);
+        saveDelivery(new Delivery(LocalDate.now(), order.getProduct()));
+        deleteOrder(order);
     }
 
 }
