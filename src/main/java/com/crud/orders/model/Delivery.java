@@ -30,9 +30,4 @@ public class Delivery {
 
     @Column(name = "productName")
     private String productName;
-
-    public Delivery(LocalDate deliveryDate, String productName) {
-        this.deliveryDate = deliveryDate;
-        this.productName = productName;
-    }
 }
