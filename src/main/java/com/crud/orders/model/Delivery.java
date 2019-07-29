@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -30,4 +31,13 @@ public class Delivery {
 
     @Column(name = "productName")
     private String productName;
+
+    @Column(name = "department")
+    private String department;
+
+    public Delivery(LocalDate deliveryDate, String productName, String department) {
+        this.deliveryDate = deliveryDate;
+        this.productName = productName;
+        this.department = department;
+    }
 }

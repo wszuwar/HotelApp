@@ -44,16 +44,22 @@ public class OrderController {
     private OrderMapper mapper;
 
     @RequestMapping(value = "order/views/allOrders")
-    public ModelAndView getAllOrders() {
+    public ModelAndView getAllOrders(Model model) {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders());
-        return new ModelAndView("order/views/allOrders", "list", list);
+        List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
+        model.addAttribute("list", list);
+        model.addAttribute("dList", dList);
+        return new ModelAndView("order/views/allOrders", "model", model);
     }
 
     @RequestMapping(value = "order/views/lunchbanket")
-    public ModelAndView getAllBanket() {
+    public ModelAndView getAllBanket(Model model) {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Lunch&Banket")).collect(Collectors.toList()));
-        return new ModelAndView("order/views/lunchbanket", "list", list);
+        List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
+        model.addAttribute("list", list);
+        model.addAttribute("dList", dList);
+        return new ModelAndView("order/views/lunchbanket", "model", model);
     }
     @RequestMapping(value = "order/views/breakfastOrder")
     public ModelAndView getAllBreakfast(Model model) {
@@ -67,22 +73,31 @@ public class OrderController {
 
     }
     @RequestMapping(value = "order/views/breakfastService")
-    public ModelAndView getAllBreakfastService() {
+    public ModelAndView getAllBreakfastService(Model model) {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Breakfast Service")).collect(Collectors.toList()));
-        return new ModelAndView("order/views/breakfastService", "list", list);
+        List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
+        model.addAttribute("list", list);
+        model.addAttribute("dList", dList);
+        return new ModelAndView("order/views/breakfastService", "model", model);
     }
     @RequestMapping(value = "order/views/kt")
-    public ModelAndView getAllKT() {
+    public ModelAndView getAllKT(Model model) {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("K&T")).collect(Collectors.toList()));
-        return new ModelAndView("order/views/kt", "list", list);
+        List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
+        model.addAttribute("list", list);
+        model.addAttribute("dList", dList);
+        return new ModelAndView("order/views/kt", "model", model);
     }
     @RequestMapping(value = "order/views/dishwash")
-    public ModelAndView getAllDishwash() {
+    public ModelAndView getAllDishwash(Model model) {
         List<OrderDto> list = mapper.mapToOrderDtoList(service.findAllOrders().stream()
                 .filter(order -> order.getDepartment().matches("Dishwash")).collect(Collectors.toList()));
-        return new ModelAndView("order/views/dishwash", "list", list);
+        List<DeliveryDto> dList = dmapper.mapToDeliveryDtoList(service.findAllDeliveryies());
+        model.addAttribute("list", list);
+        model.addAttribute("dList", dList);
+        return new ModelAndView("order/views/dishwash", "model", model);
     }
 
 
@@ -102,7 +117,7 @@ public class OrderController {
             return "order/addOrder";
         }
         mapper.mapToOrderDto(service.saveOrder(orderDto));
-        return redirect(orderDto);
+        return redirect(orderDto.getDepartment());
     }
 
     @RequestMapping(value = "/order/editOrder/{id}")
@@ -124,21 +139,20 @@ public class OrderController {
         order.setStatus(o.getStatus());
 
         mapper.mapToOrderDto(service.saveOrder(order));
-        return new ModelAndView(redirect(order));
+        return new ModelAndView(redirect(order.getDepartment()));
     }
 
     @RequestMapping(value = "/deleteOrder/{id}", method = RequestMethod.GET)
     public ModelAndView deleteOrder(@PathVariable Long id) {
         Order order = service.findOneorder(id);
         service.deleteOrder(order);
-        return new ModelAndView(redirect(order));
+        return new ModelAndView(redirect(order.getDepartment()));
     }
-    @RequestMapping(value = "/delivery/addDelivery", method = RequestMethod.GET)
-    public String addDeliveryies(ModelMap model) {
-        DeliveryDto deliveryDto = new DeliveryDto();
-        model.addAttribute("delivery", dmapper.mapToDelivery(deliveryDto));
-
-        return "delivery/addDelivery";
+    @RequestMapping(value = "/delivery/addDelivery/{orderId}", method = RequestMethod.POST)
+    public ModelAndView addDeliveryies(ModelMap model, @PathVariable Long orderId) {
+        Order order = service.findOneorder(orderId);
+        service.createDelivery(orderId);
+        return new ModelAndView(redirect(order.getDepartment()));
     }
 
     @RequestMapping(value = "/saveDelivery", method = RequestMethod.POST)
@@ -146,7 +160,13 @@ public class OrderController {
                                         RedirectAttributes redirectAttributes) {
 
         dmapper.mapToDeliveryDto(service.saveDelivery(deliveryDto));
-        return new ModelAndView("redirect:/order/views/breakfastOrder");
+        return new ModelAndView(redirect(deliveryDto.getDepartment()));
+    }
+    @RequestMapping(value = "/deleteDelivery/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteDelivery(@PathVariable Long id){
+        Delivery delivery = service.findOneDelivery(id);
+        service.deleteDelivery(delivery);
+        return new ModelAndView(redirect(delivery.getDepartment()));
     }
 
 
@@ -170,9 +190,9 @@ public class OrderController {
         return suppliers;
     }
 
-    public String redirect(Order order){
+    public String redirect(String string){
         String redirecting = "";
-        switch (order.getDepartment()){
+        switch (string){
             case "Breakfast":
                 redirecting = "redirect:/order/views/breakfastOrder";
                 break;
@@ -191,8 +211,5 @@ public class OrderController {
         }
         return redirecting;
     }
-
-
-
 
 }

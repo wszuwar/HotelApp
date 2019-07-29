@@ -31,7 +31,6 @@
 <div><h1 align="center"> KT Orders</h1></div>
 </br>
 
-
 <form:form>
 
 
@@ -43,18 +42,21 @@
             <th>Product</th>
             <th>Department</th>
             <th>Suplier</th>
-            <th>Status</th>
+
             <th>Edit</th>
             <th>Delete</th>
+            <th>Order</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${list}">
+
+        <tr th:each="order : ${list}" >
+
             <td th:text="${{#dates.format(order.date, 'dd-MM-yyyy')}}"></td>
             <td th:text="${order.product}"></td>
             <td th:text="${order.department}"></td>
             <td th:text="${order.supplier}"></td>
-            <td th:text="${order.status}"></td>
+
 
 
             <td><a th:href="@{'/order/editOrder/' + ${order.id}}">
@@ -64,7 +66,34 @@
                 <button name="delete" id="delete">Delete</button>
             </a></td>
 
+            <td><a>
+                <form method="POST" th:action="@{'/delivery/addDelivery/' + ${order.getId()}}">
+                    <button type="submit" name="orderButton" id="orderButton" value="value" class="link-button">Order</button>
+                </form>
+            </a></td>
 
+
+        </tr>
+        </tbody>
+    </table>
+    <table class="ordered-table">
+        <thead>
+        <tr>
+            <th>Delivery Date</th>
+            <th>Product</th>
+            <th>Department</th>
+            <th>Delete</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr th:each="delivery : ${dList}">
+            <td th:text="${delivery.deliveryDate}"></td>
+            <td th:text="${delivery.productName}"></td>
+            <td th:text="${delivery.department}"></td>
+            <td><a  th:href="@{'/deleteDelivery/' + ${delivery.id}}" >
+                <button  name="deleteDelivery" id="deliveryDelete">Delete</button>
+            </a></td>
         </tr>
         </tbody>
     </table>

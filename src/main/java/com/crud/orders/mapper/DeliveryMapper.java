@@ -13,20 +13,22 @@ public class DeliveryMapper {
         return new Delivery(
                 deliveryDto.getId(),
                 deliveryDto.getDeliveryDate(),
-                deliveryDto.getProductName()
+                deliveryDto.getProductName(),
+                deliveryDto.getDepartment()
         );
     }
     public DeliveryDto mapToDeliveryDto(final Delivery delivery){
         return new DeliveryDto(
                 delivery.getId(),
                 delivery.getDeliveryDate(),
-                delivery.getProductName()
+                delivery.getProductName(),
+                delivery.getDepartment()
         );
     }
     public List<DeliveryDto> mapToDeliveryDtoList(final List<Delivery> deliveryList){
         return deliveryList.stream()
                 .map(m->new DeliveryDto(
-                        m.getId(), m.getDeliveryDate(), m.getProductName()
+                        m.getId(), m.getDeliveryDate(), m.getProductName(), m.getDepartment()
                 )).collect(Collectors.toList());
     }
 }
