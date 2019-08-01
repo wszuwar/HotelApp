@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Orders From All Departments</title>
+    <link rel="stylesheet" th:href="@{/css/tablesStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/css/buttonsStyle.css}"/>
+
+
+</head>
+
+
+<body>
+<ul>
+    <li>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" id="logout"/>
+        </form>
+
+    </li>
+    <li><a href="/user/addUser">
+        <button name="add" id="newOrder">Add New</button>
+    </a>
+    </li>
+    <li><a href="/home">
+        <button name="back" id="back">Back</button>
+    </a> </li>
+</ul>
+<br>
+<div><h1 align="center"> All Users</h1></div>
+</br>
+
+<form:form>
+
+
+    <table class="content-table" width="70%" cellpadding="2">
+
+        <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Password</th>
+            <th>Roles</th>
+            <th>IsActive</th>
+
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="user : ${list}" >
+
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.roles}"></td>
+            <td th:text="${user.active}"></td>
+
+
+
+            <td><a th:href="@{'/user/editUser/' + ${user.id}}">
+                <button name="edit" id="edit">Edit</button>
+            </a></td>
+            <td><a th:href="@{'/deleteUser/' + ${user.id}}">
+                <button name="delete" id="delete">Delete</button>
+            </a></td>
+
+
+        </tr>
+        </tbody>
+    </table>
+</form:form>
+</body>
+</html>

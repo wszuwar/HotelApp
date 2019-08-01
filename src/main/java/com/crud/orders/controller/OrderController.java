@@ -3,21 +3,18 @@ package com.crud.orders.controller;
 
 import com.crud.orders.mapper.DeliveryMapper;
 import com.crud.orders.mapper.OrderMapper;
-import com.crud.orders.model.Delivery;
-import com.crud.orders.model.DeliveryDto;
-import com.crud.orders.model.OrderDto;
-import com.crud.orders.model.Order;
+import com.crud.orders.model.*;
 import com.crud.orders.service.DbService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -42,6 +39,14 @@ public class OrderController {
 
     @Autowired
     private OrderMapper mapper;
+
+    private Logger log = LoggerFactory.getLogger(OrderController.class);
+
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("user", new AppUser());
+        return "login";
+    }
 
     @RequestMapping(value = "order/views/allOrders")
     public ModelAndView getAllOrders(Model model) {
@@ -148,6 +153,7 @@ public class OrderController {
         service.deleteOrder(order);
         return new ModelAndView(redirect(order.getDepartment()));
     }
+
     @RequestMapping(value = "/delivery/addDelivery/{orderId}", method = RequestMethod.POST)
     public ModelAndView addDeliveryies(ModelMap model, @PathVariable Long orderId) {
         Order order = service.findOneorder(orderId);
@@ -162,6 +168,7 @@ public class OrderController {
         dmapper.mapToDeliveryDto(service.saveDelivery(deliveryDto));
         return new ModelAndView(redirect(deliveryDto.getDepartment()));
     }
+
     @RequestMapping(value = "/deleteDelivery/{id}", method = RequestMethod.GET)
     public ModelAndView deleteDelivery(@PathVariable Long id){
         Delivery delivery = service.findOneDelivery(id);
