@@ -1,6 +1,7 @@
 package com.crud.orders.controller;
 
 import com.crud.orders.model.AppUser;
+import com.crud.orders.model.Role;
 import com.crud.orders.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -48,6 +50,7 @@ public class AppUserController {
             System.out.println("HAS ERRORS!");
             return "user/addUser";
         }
+
         appUser.setPassword(encoder.encode(appUser.getPassword()));
         userService.saveUser(appUser);
         return "redirect:/user/views/allUsers";
@@ -69,7 +72,7 @@ public class AppUserController {
         appUser.setPassword(o.getPassword());
         appUser.setRoles(o.getRoles());
         appUser.setActive(o.isActive());
-
+        appUser.setPassword(encoder.encode(appUser.getPassword()));
         userService.saveUser(appUser);
         return new ModelAndView("redirect:/user/views/allUsers");
 
@@ -84,6 +87,9 @@ public class AppUserController {
 
     @ModelAttribute("addUserRole")
     public List<String> initializeRoles(){
+        Role role = new Role("USER");
+        List<Role> roleList =  Arrays.asList();
+        roleList.add(role);
         List<String> roles = new ArrayList<>();
         roles.add("ADMIN");
         roles.add("USER");

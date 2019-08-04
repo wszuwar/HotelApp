@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Add Order</title>
+    <link rel="stylesheet" th:href="@{/css/addAndEditUser.css}"/>
 </head>
 <body>
+<div>
 
+    <h1 align="center">New User</h1>
+    <a href="/home">
+        <button name="back" id="back">Back</button>
+    </a>
+
+    <form action="#" th:action="@{/editUserSave}" th:object="${user}" method="post">
+        <input type="hidden" th:value="${id}" th:field="*{id}"/>
+
+        <table id="addUser">
+
+            <tr>
+
+                <td width="10%" >Username :</td>
+                <td>
+                    <input type="text" th:field="*{username}" minlength="3"/>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>
+                    <input type="password" th:field="*{password}" minlength="3"/>
+
+                </td>
+            </tr>
+            <tr>
+
+                <td>Role:</td>
+                <td>
+
+                    <select th:field="*{roles}">
+                        <option id="roleOption" th:each="addRole : ${addUserRole}" th:value="addRole" th:text="${addRole}">
+                            Role
+                        </option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Is Active:</td>
+                <td>
+                    <input type="checkbox" th:field="*{active}"/>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" id="save" value="Save Changes"/>
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+
+</div>
 </body>
 </html>

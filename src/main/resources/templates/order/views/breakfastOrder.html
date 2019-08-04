@@ -70,7 +70,7 @@
                 <button name="delete" id="delete">Delete</button>
             </a></td>
 
-            <td><a>
+           <if></if> <td><a>
                 <form method="POST" th:action="@{'/delivery/addDelivery/' + ${order.getId()}}">
                     <button type="submit" name="orderButton" id="orderButton" value="value" class="link-button">Order</button>
                 </form>
