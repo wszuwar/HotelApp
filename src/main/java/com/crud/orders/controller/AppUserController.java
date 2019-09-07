@@ -2,6 +2,7 @@ package com.crud.orders.controller;
 
 import com.crud.orders.model.AppUser;
 import com.crud.orders.model.Role;
+import com.crud.orders.service.impl.RoleService;
 import com.crud.orders.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,10 +30,17 @@ public class AppUserController {
     @Autowired
    private UserServiceImpl userService;
 
+    @Autowired
+    private RoleService roleService;
+
+
     @RequestMapping(value = "user/views/allUsers")
     public ModelAndView getAllUsers(Model model) {
         List<AppUser> list = userService.findAllUsers();
-        return new ModelAndView("user/views/allUsers", "list", list);
+        List<Role> rollList = roleService.findAllRoles();
+        model.addAttribute("list",list);
+        model.addAttribute("roleList",rollList);
+        return new ModelAndView("user/views/allUsers", "model", model);
     }
 
     @RequestMapping(value = "/user/addUser", method = RequestMethod.GET)
@@ -52,6 +59,8 @@ public class AppUserController {
         }
 
         appUser.setPassword(encoder.encode(appUser.getPassword()));
+        List<Role> roleList = Arrays.asList(roleService.findOneRole(2L));
+        appUser.setRoles(roleList);
         userService.saveUser(appUser);
         return "redirect:/user/views/allUsers";
     }
@@ -85,16 +94,54 @@ public class AppUserController {
         return new ModelAndView("redirect:/user/views/allUsers");
     }
 
-    @ModelAttribute("addUserRole")
-    public List<String> initializeRoles(){
-        Role role = new Role("USER");
-        List<Role> roleList =  Arrays.asList();
-        roleList.add(role);
-        List<String> roles = new ArrayList<>();
-        roles.add("ADMIN");
-        roles.add("USER");
-        roles.add("MANAGER");
-        return roles;
+
+
+
+    @RequestMapping(value = "role/views/allRoles")
+    public ModelAndView getAllRoles(Model model){
+        List<Role> roleList = roleService.findAllRoles();
+        return new ModelAndView("role/views/allRoles", "roleList",roleList);
+    }
+
+    @RequestMapping(value = "/role/addRole", method = RequestMethod.GET)
+    public String newRoleRegistration(ModelMap model){
+        Role userRole = new Role();
+        model.addAttribute("userRole", userRole);
+        return "role/addRole";
+    }
+
+    @RequestMapping(value = "/saveRole", method = RequestMethod.POST)
+    public String saveRoleRegistration(@Valid Role role, BindingResult result, ModelMap model,
+                                       RedirectAttributes redirectAttributes){
+        if (result.hasErrors()) {
+            System.out.println("HAS ERRORS!");
+            return "role/addRole";
+        }
+        roleService.saveRole(role);
+        return "redirect:/role/views/allRoles";
+    }
+    @RequestMapping(value = "/role/editRole/{id}")
+    public String editRole(@PathVariable Long id, ModelMap model){
+        roleService.findOneRole(id);
+        model.addAttribute("role", roleService.findOneRole(id));
+        return "role/editRole";
+    }
+
+    @RequestMapping(value = "/editRoleSave", method = RequestMethod.POST)
+    public ModelAndView editUserSave(@ModelAttribute("role") Role r){
+        Role role = roleService.findOneRole(r.getId());
+
+        role.setRole(r.getRole());
+
+        roleService.saveRole(role);
+        return new ModelAndView("redirect:/role/allRoles");
+    }
+
+    @RequestMapping(value = "/deleteRole/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteRole(@PathVariable Long id){
+        Role role = roleService.findOneRole(id);
+        roleService.deleteRole(role);
+        return new ModelAndView("redirect:/role/allRoles");
     }
 
 

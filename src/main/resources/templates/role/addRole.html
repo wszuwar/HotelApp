@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Role</title>
+    <link rel="stylesheet" th:href="@{/css/addAndEditUser.css}"/>
+</head>
+<body>
+<div>
+
+    <h1 align="center">New Role</h1>
+    <a href="/home">
+        <button name="back" id="back">Back</button>
+    </a>
+
+    <form action="#" th:action="@{/saveRole}" th:object="${userRole}" method="post">
+
+        <table id="addRole">
+
+            <tr>
+
+                <td width="10%" >Role name :</td>
+                <td>
+                    <input type="text" th:field="*{role}" minlength="3"/>
+                    <label th:if="${#fields.hasErrors('role')}" th:errors="*{role}" th:class="'error'">Error in
+                        Role name</label>
+                </td>
+
+            </tr>
+                <tr>
+                <td></td>
+                <td>
+                    <input type="submit" id="add" value="Add"/>
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+
+</div>
+</body>
+</html>

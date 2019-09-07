@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:form="http://www.w3.org/1999/xhtml">
+      xmlns:form="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title>Orders From All Departments</title>
@@ -45,7 +45,7 @@
 
             <th>Edit</th>
             <th>Delete</th>
-            <th>Order</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Order</th>
         </tr>
         </thead>
         <tbody>
@@ -66,7 +66,7 @@
                 <button name="delete" id="delete">Delete</button>
             </a></td>
 
-            <td><a>
+            <td sec:authorize="hasAuthority('ADMIN')"><a>
                 <form method="POST" th:action="@{'/delivery/addDelivery/' + ${order.getId()}}">
                     <button type="submit" name="orderButton" id="orderButton" value="value" class="link-button">Order</button>
                 </form>
@@ -82,7 +82,7 @@
             <th>Delivery Date</th>
             <th>Product</th>
             <th>Department</th>
-            <th>Delete</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
         </tr>
 
         </thead>
@@ -91,7 +91,7 @@
             <td th:text="${delivery.deliveryDate}"></td>
             <td th:text="${delivery.productName}"></td>
             <td th:text="${delivery.department}"></td>
-            <td><a  th:href="@{'/deleteDelivery/' + ${delivery.id}}" >
+            <td sec:authorize="hasAuthority('ADMIN')"><a  th:href="@{'/deleteDelivery/' + ${delivery.id}}" >
                 <button  name="deleteDelivery" id="deliveryDelete">Delete</button>
             </a></td>
         </tr>

@@ -3,7 +3,7 @@
       xmlns:form="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
-    <title>Orders From All Departments</title>
+    <title>Aplication User Roles</title>
     <link rel="stylesheet" th:href="@{/css/tablesStyle.css}"/>
     <link rel="stylesheet" th:href="@{/css/buttonsStyle.css}"/>
 
@@ -19,8 +19,8 @@
         </form>
 
     </li>
-    <li><a href="/user/addUser">
-        <button name="add" id="newOrder">Add New User</button>
+    <li><a href="/role/addRole">
+        <button name="add" id="newRole">Add New Role</button>
     </a>
     </li>
     <li><a href="/home">
@@ -28,7 +28,7 @@
     </a> </li>
 </ul>
 <br>
-<div><h1 align="center"> All Users</h1></div>
+<div><h1 align="center"> All Roles</h1></div>
 </br>
 
 <form:form>
@@ -38,30 +38,18 @@
 
         <thead>
         <tr>
-            <th>UserName</th>
-            <th>Password</th>
-            <th>Roles</th>
-            <th>IsActive</th>
-
-            <th>Edit</th>
+            <th>RoleName</th>
             <th>Delete</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="user : ${list}" >
+        <tr th:each="role : ${roleList}" >
 
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.password}"></td>
-            <td th:text="${user.roles}"></td>
-            <td th:text="${user.active}"></td>
+            <td th:text="${role.role}"></td>
 
 
-
-            <td><a th:href="@{'/user/editUser/' + ${user.id}}">
-                <button name="edit" id="edit">Edit</button>
-            </a></td>
-            <td><a th:href="@{'/deleteUser/' + ${user.id}}">
+            <td><a th:href="@{'/deleteRole/' + ${role.id}}">
                 <button name="delete" id="delete">Delete</button>
             </a></td>
 
