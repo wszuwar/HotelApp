@@ -21,7 +21,7 @@
 
                 <td width="10%" >Role name :</td>
                 <td>
-                    <input type="text" th:field="*{role}" minlength="3"/>
+                    <input type="text" th:field="*{role}" />
                     <label th:if="${#fields.hasErrors('role')}" th:errors="*{role}" th:class="'error'">Error in
                         Role name</label>
                 </td>

@@ -15,7 +15,7 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "role")
     private String role;
@@ -27,5 +27,9 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<AppUser> users;
+
+    public String getRole() {
+        return role;
+    }
 
 }

@@ -14,6 +14,8 @@ import java.util.Arrays;
 
 @SpringBootApplication
 //public class OrdersApplication implements CommandLineRunner {
+
+
 public class OrdersApplication {
 
 	public static void main(String[] args) {
@@ -35,8 +37,6 @@ public class OrdersApplication {
 	 */
 //	@Override
 //	public void run(String... arg0) throws Exception {
-//		Remove or comment this part after first execution of application,
-//		or else duplicate data will be inserted in the database
 //		AppUser admin = new AppUser();
 //		admin.setActive(true);
 //		admin.setPassword(encoder.encode("password"));

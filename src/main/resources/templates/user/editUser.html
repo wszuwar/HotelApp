@@ -39,11 +39,12 @@
                 <td>Role:</td>
                 <td>
 
-                    <!--<select th:field="*{roles}">-->
-                        <!--<option id="roleOption" th:each="addRole : ${user.getRoles()}" th:value="addRole" th:text="${addRole}">-->
-                            <!--Role-->
-                        <!--</option>-->
-                    <!--</select>-->
+
+                   <select th:field="*{roles}">
+                   <option id="suppoption" th:each="role : ${rollList}" th:value="${role}" th:text="${role.role}">
+                   </option>
+                   </select>
+
 
                 </td>
             </tr>

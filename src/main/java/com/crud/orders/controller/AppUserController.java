@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AppUserController {
@@ -68,7 +69,9 @@ public class AppUserController {
     @RequestMapping(value = "/user/editUser/{id}")
     public String editUser(@PathVariable Long id, ModelMap model) {
         userService.findOneUser(id);
+        List<Role> rollList = roleService.findAllRoles();
         model.addAttribute("user", userService.findOneUser(id));
+        model.addAttribute("rollList", rollList);
         return "user/editUser";
     }
 
@@ -107,6 +110,7 @@ public class AppUserController {
     public String newRoleRegistration(ModelMap model){
         Role userRole = new Role();
         model.addAttribute("userRole", userRole);
+
         return "role/addRole";
     }
 
@@ -117,6 +121,7 @@ public class AppUserController {
             System.out.println("HAS ERRORS!");
             return "role/addRole";
         }
+
         roleService.saveRole(role);
         return "redirect:/role/views/allRoles";
     }
@@ -143,7 +148,6 @@ public class AppUserController {
         roleService.deleteRole(role);
         return new ModelAndView("redirect:/role/allRoles");
     }
-
 
 
 }

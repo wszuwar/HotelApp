@@ -5,6 +5,8 @@ import com.crud.orders.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class RoleService {
     public List<Role> findAllRoles(){
         return roleRepository.findAll();
     }
+
     public Role saveRole(Role role){
         return roleRepository.save(role);
     }
@@ -28,4 +31,6 @@ public class RoleService {
     public void deleteRole(Role role){
         roleRepository.delete(role);
     }
+
 }
+
