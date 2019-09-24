@@ -108,20 +108,23 @@ public class AppUserController {
 
     @RequestMapping(value = "/role/addRole", method = RequestMethod.GET)
     public String newRoleRegistration(ModelMap model){
-        Role userRole = new Role();
+        Role role = new Role();
+        String userRole = role.getRole();
         model.addAttribute("userRole", userRole);
 
         return "role/addRole";
     }
 
     @RequestMapping(value = "/saveRole", method = RequestMethod.POST)
-    public String saveRoleRegistration(@Valid Role role, BindingResult result, ModelMap model,
+    public String saveRoleRegistration(@Valid String userRole, BindingResult result, ModelMap model,
                                        RedirectAttributes redirectAttributes){
         if (result.hasErrors()) {
             System.out.println("HAS ERRORS!");
             return "role/addRole";
         }
 
+
+        Role role = new Role(userRole);
         roleService.saveRole(role);
         return "redirect:/role/views/allRoles";
     }
