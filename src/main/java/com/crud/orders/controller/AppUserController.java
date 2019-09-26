@@ -118,10 +118,11 @@ public class AppUserController {
                                        RedirectAttributes redirectAttributes, @RequestParam String newRole){
         if (false) {
             //check if role already exists
-
-   
-        roleService.saveRole(newRole);
+            System.out.println("HAS ERRORS!");
+            return "role/addRole";
         }
+        roleService.saveRole(newRole);
+
 
         return "redirect:/role/views/allRoles";
     }
@@ -139,14 +140,14 @@ public class AppUserController {
         role.setRole(r.getRole());
 
         roleService.saveRole(role);
-        return new ModelAndView("redirect:/role/allRoles");
+        return new ModelAndView("redirect:/role/views/allRoles");
     }
 
     @RequestMapping(value = "/deleteRole/{id}", method = RequestMethod.GET)
     public ModelAndView deleteRole(@PathVariable Long id){
         Role role = roleService.findOneRole(id);
         roleService.deleteRole(role);
-        return new ModelAndView("redirect:/role/allRoles");
+        return new ModelAndView("redirect:/role/views/allRoles");
     }
 
 

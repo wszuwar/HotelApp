@@ -43,8 +43,8 @@
             <th>Roles</th>
             <th>IsActive</th>
 
-            <th>Edit</th>
-            <th>Delete</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Edit</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -68,10 +68,10 @@
 
 
 
-            <td><a th:href="@{'/user/editUser/' + ${user.id}}">
+            <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/user/editUser/' + ${user.id}}">
                 <button name="edit" id="edit">Edit</button>
             </a></td>
-            <td><a th:href="@{'/deleteUser/' + ${user.id}}">
+            <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/deleteUser/' + ${user.id}}">
                 <button name="delete" id="delete">Delete</button>
             </a></td>
 

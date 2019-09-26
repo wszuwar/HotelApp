@@ -19,7 +19,7 @@
         </form>
 
     </li>
-    <li><a href="/role/addRole">
+    <li sec:authorize="hasAuthority('ADMIN')"><a href="/role/addRole">
         <button name="add" id="newOrder">Add New Role</button>
     </a>
     </li>
@@ -39,7 +39,7 @@
         <thead>
         <tr>
             <th>RoleName</th>
-            <th>Delete</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -49,7 +49,7 @@
             <td th:text="${role.role}"></td>
 
 
-            <td><a th:href="@{'/deleteRole/' + ${role.id}}">
+            <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/deleteRole/' + ${role.id}}">
                 <button name="delete" id="delete">Delete</button>
             </a></td>
 

@@ -27,11 +27,11 @@
         </ul>
     </li>
     <li><a>Waste</a></li>
-    <li sec:authorize="hasAuthority('ADMIN')"><a>Users</a>
+    <li sec:authorize="hasAnyAuthority('ADMIN', 'SOUS-CHEF')"><a>Users</a>
     <ul>
         <li><a th:href="@{/user/views/allUsers.html}">Show All</a> </li>
     </ul></li>
-    <li sec:authorize="hasAuthority('ADMIN')"><a>Roles</a>
+    <li sec:authorize="hasAnyAuthority('ADMIN', 'SOUS-CHEF')"><a>Roles</a>
         <ul>
             <li><a th:href="@{/role/views/allRoles.html}">Show All</a> </li>
         </ul></li>

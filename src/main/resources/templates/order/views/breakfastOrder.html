@@ -50,7 +50,7 @@
 
             <th>Edit</th>
             <th>Delete</th>
-            <th sec:authorize="hasAuthority('ADMIN')">Order</th>
+            <th sec:authorize="hasAnyAuthority('ADMIN', 'SOUS-CHEF')">Order</th>
         </tr>
         </thead>
         <tbody>
@@ -72,7 +72,7 @@
             </a></td>
 
 
-            <td sec:authorize="hasAuthority('ADMIN')" ><a>
+            <td sec:authorize="hasAnyAuthority('ADMIN', 'SOUS-CHEF')" ><a>
                 <form  method="POST" th:action="@{'/delivery/addDelivery/' + ${order.getId()}}">
                     <button   type="submit" name="orderButton" id="orderButton" value="value" class="link-button">Order</button>
                 </form>
@@ -88,7 +88,7 @@
             <th>Delivery Date</th>
             <th>Product</th>
             <th>Department</th>
-            <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
+            <th sec:authorize="hasAnyAuthority('ADMIN', 'SOUS-CHEF')">Delete</th>
         </tr>
 
         </thead>
@@ -97,7 +97,7 @@
             <td th:text="${delivery.deliveryDate}"></td>
             <td th:text="${delivery.productName}"></td>
             <td th:text="${delivery.department}"></td>
-          <td sec:authorize="hasAuthority('ADMIN')"><a  th:href="@{'/deleteDelivery/' + ${delivery.id}}" >
+          <td sec:authorize="hasAnyAuthority('ADMIN', 'SOUS-CHEF')"><a  th:href="@{'/deleteDelivery/' + ${delivery.id}}" >
                 <button  name="deleteDelivery" id="deliveryDelete">Delete</button>
             </a></td>
         </tr>
