@@ -41,7 +41,7 @@
 
 
                    <select th:field="*{roles}">
-                   <option id="suppoption" th:each="role : ${rollList}" th:value="${role}" th:text="${role.role}">
+                   <option id="suppoption" th:each="role : ${rollList}" th:value="${role.id}" th:text="${role.role}">
                    </option>
                    </select>
 

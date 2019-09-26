@@ -24,6 +24,12 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
+    public Role saveRole(String role){
+        Role r = new Role();
+        r.setRole(role);
+        return roleRepository.save(r);
+    }
+
     public Role findOneRole(Long id){
         return roleRepository.findOne(id);
     }
