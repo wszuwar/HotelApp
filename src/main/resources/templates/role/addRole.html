@@ -13,7 +13,7 @@
         <button name="back" id="back">Back</button>
     </a>
 
-    <form action="#" th:action="@{/saveRole}" th:object="${userRole}" method="post">
+    <form action="#" th:action="@{/saveRole}" method="post">
 
         <table id="addRole">
 
@@ -21,9 +21,9 @@
 
                 <td width="10%" >Role name :</td>
                 <td>
-                    <input type="text" th:field="*{role}" />
-                    <label th:if="${#fields.hasErrors('role')}" th:errors="*{role}" th:class="'error'">Error in
-                        Role name</label>
+                    <input type="text" name="newRole" />
+<!--                    <label th:if="${#fields.hasErrors('role')}" th:class="'error'">Error in-->
+<!--                        Role name</label>-->
                 </td>
 
             </tr>
