@@ -37,17 +37,19 @@ public class OrdersApplication implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... arg0) throws Exception {
-		AppUser admin = new AppUser();
-		admin.setActive(true);
-		admin.setPassword(encoder.encode("password"));
-		admin.setUsername("admin");
-		admin.setRoles(Arrays.asList(new Role("ADMIN")));
 
-		userRepository.save(admin);
+			AppUser admin = new AppUser();
+			admin.setActive(true);
+			admin.setPassword(encoder.encode("password"));
+			admin.setUsername("admin");
+			admin.setRoles(Arrays.asList(new Role("ADMIN")));
+			userRepository.save(admin);
 
-		Role roleUser = new Role();
-		roleUser.setRole("USER");
-		roleRepository.save(roleUser);
+			Role roleUser = new Role();
+			roleUser.setRole("USER");
+			roleRepository.save(roleUser);
+
+
 
 	}
 
