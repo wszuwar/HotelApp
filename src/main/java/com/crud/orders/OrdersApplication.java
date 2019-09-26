@@ -37,7 +37,7 @@ public class OrdersApplication implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... arg0) throws Exception {
-		if (roleRepository.findAll().isEmpty()) {
+
 			AppUser admin = new AppUser();
 			admin.setActive(true);
 			admin.setPassword(encoder.encode("password"));
@@ -49,7 +49,7 @@ public class OrdersApplication implements CommandLineRunner {
 			roleUser.setRole("USER");
 			roleRepository.save(roleUser);
 
-		}
+
 	}
 
 }
